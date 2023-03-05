@@ -6,6 +6,7 @@ import "./movie.css"
 
 function  Series() {
   const [data, setData] = useState([]);
+  const [isLoading,setLoading]=useState(false)
 
 
   useEffect(() => {
@@ -31,6 +32,7 @@ function  Series() {
   };
 
   const getData = async () => {
+    setLoading(true)
     try {
         console.log("fetchData")
       const res = await axios.get(
@@ -38,6 +40,7 @@ function  Series() {
       );
         console.log(res.data.entries)
         filterArray(res.data.entries)
+        setLoading(false)
     } catch (err) {
       console.log(err);
     }
@@ -50,12 +53,11 @@ function  Series() {
       <Navbar />
       <div style={{backgroundColor:"gray",width:"100%",marginBottom:"10px",padding:"20px"}}>Popular Series</div>
       <div className="container">
+      {isLoading?<div><h1>Loading....</h1></div>:
       <div className="grid">
         {data.map((item, index) => (
           <div className="outerDiv" key={index}>
-            <div
-              className="imgdiv"
-            >
+            <div className="imgdiv">
               {
                 <img
                   src={item.images["Poster Art"].url}
@@ -73,6 +75,7 @@ function  Series() {
           </div>
         ))}
       </div>
+}
       </div>
       <Footer />
     </>
