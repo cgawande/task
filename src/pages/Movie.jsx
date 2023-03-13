@@ -60,9 +60,7 @@ function Movie() {
       <div className="grid">
         {data.map((item, index) => (
           <div className="outerDiv" key={index}>
-            <div
-              className="imgdiv"
-            >
+            <div  className="imgdiv">
               {
                 <img
                   src={item.images["Poster Art"].url}
